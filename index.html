@@ -8,17 +8,55 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
+
+<script>
+  // theme system
+  function toggleTheme() {
+    let theme = document.documentElement.getAttribute("data-theme");
+    if(theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme","light");
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme","dark");
+    }
+  }
+
+  // load preference
+  let saved = localStorage.getItem("theme");
+  if(saved) document.documentElement.setAttribute("data-theme", saved);
+  else document.documentElement.setAttribute("data-theme", "light");
+</script>
+  
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">FutriFix</div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="signup-tech.html">Become a Tech</a>
-        <a href="client-post.html">Post a Job</a>
-      </nav>
-    </div>
-  </header>
+<header class="site-header">
+  <div class="container header-inner">
+
+    <!-- Logo / Brand -->
+    <div class="brand">FutriFix</div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="signup-tech.html">Become a Tech</a>
+      <a href="client-post.html">Post a Job</a>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <!-- Mobile Slide-out Navigation -->
+  <div id="mobileMenu" class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="signup-tech.html">Become a Tech</a>
+      <a href="client-post.html">Post a Job</a>
+  </div>
+</header>
+
 
   <main class="container">
     <section class="hero">
