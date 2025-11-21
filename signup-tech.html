@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Technician Signup – FutriFix</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
+
+<style>
+.form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: auto;
+}
+.form input, .form textarea {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+<h1>Technician Signup</h1>
+
+<div class="form">
+
+  <input id="name" placeholder="Full Name" />
+  <input id="city" placeholder="City" />
+  <input id="pin" placeholder="PIN Code" />
+  <input id="services" placeholder="Services (comma separated)" />
+  <input id="degree" placeholder="Degree / Certification" />
+  <input id="photo" placeholder="Photo URL" />
+  <input id="experience" placeholder="Experience (years)" />
+  <input id="price" placeholder="Starting Price (₹)" />
+
+  <button onclick="registerTech()" class="btn-primary">Register</button>
+
+</div>
+
+</div>
+
+<script>
+function registerTech() {
+    const newTech = {
+       id: Date.now(),
+       name: name.value,
+       city: city.value,
+       pin: pin.value,
+       services: services.value.split(",").map(s=>s.trim()),
+       degree: degree.value,
+       photo: photo.value,
+       experience: experience.value,
+       price: price.value
+    };
+
+    let techList = JSON.parse(localStorage.getItem("techList") || "[]");
+    techList.push(newTech);
+    localStorage.setItem("techList", JSON.stringify(techList));
+
+    alert("Technician registered successfully!");
+    window.location = "index.html";
+}
+</script>
+</body>
+</html>
