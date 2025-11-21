@@ -1,201 +1,197 @@
 :root {
-  --bg: #050505;                  /* Carbon black background */
-  --card: #0a0a0a;                /* Dark card surface */
-  --muted: #9fb0c2;
-  --accent: #ff6a00;              /* Orange accent */
-  --accent2: #ffb300;             /* Secondary orange */
-  --rainbow: linear-gradient(90deg, #ff0080, #ff8c00, #ffee00, #00e676, #00b0ff, #7c4dff);
-  --glass: rgba(255, 255, 255, 0.04);
-}
+  /* Eye-safe matte colors */
+  --bg: #0b0b0b;                     /* Matte carbon black */
+  --surface: #121212;                /* Slightly lifted background */
+  --card: #161616;                   /* Smooth card surface */
+  
+  /* Text */
+  --text: #f5f7fa;
+  --text-muted: #aeb4be;
 
-* {
-  box-sizing: border-box;
-  font-family: Inter, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  /* Premium Matte Orange */
+  --orange: #ff8a32;
+  --orange-soft: #ffaa63;
+
+  /* Soft borders & shadows */
+  --border: rgba(255,255,255,0.06);
+  --shadow: 0 4px 14px rgba(0,0,0,0.35);
 }
 
 html, body {
-  height: 100%;
   background: var(--bg);
-  color: #f0f6ff;
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
   scroll-behavior: smooth;
 }
 
-/* Container */
+/* Smooth container spacing */
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 28px 16px;
+  padding: 30px 16px;
 }
 
 /* Header */
 .site-header {
-  background: transparent;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  background: var(--bg);
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .brand {
+  font-size: 24px;
   font-weight: 800;
-  font-size: 22px;
-  background: var(--rainbow);
+  letter-spacing: -0.5px;
+  background: var(--orange);
   -webkit-background-clip: text;
   color: transparent;
 }
 
+/* Navigation */
 nav a {
-  color: var(--muted);
-  margin-left: 16px;
-  text-decoration: none;
+  color: var(--text-muted);
+  margin-left: 20px;
+  font-size: 15px;
   font-weight: 600;
-  transition: color 0.2s;
+  transition: 0.25s;
 }
 
 nav a:hover {
-  color: var(--accent2);
+  color: var(--orange);
 }
 
 /* Hero */
 .hero {
+  margin-top: 40px;
   display: flex;
-  gap: 28px;
-  align-items: center;
-  margin-top: 28px;
   flex-wrap: wrap;
+  gap: 30px;
 }
 
+/* HERO TITLE */
 .hero h1 {
-  font-size: 36px;
+  font-size: 38px;
+  font-weight: 800;
   line-height: 1.2;
-  margin: 0 0 12px;
-  background: var(--rainbow);
+  background: linear-gradient(90deg, #ff3860, #ff8a32, #00d57d);
   -webkit-background-clip: text;
   color: transparent;
 }
 
-/* Search */
-.search-row input {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  background: #111;
-  border: 1px solid #222;
-  color: #fff;
+/* Search Bar */
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
 }
 
-/* ORANGE CTA BUTTON */
+.search-row input {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #1a1a1a;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 15px;
+}
+
+/* SMOOTH MATTE BUTTON */
 .btn-primary {
-  background: var(--accent);
-  color: #000;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 13px 24px;
+  border-radius: 14px;
   border: none;
+  background: var(--orange);
+  color: #000;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
-  font-weight: 800;
-  box-shadow: 0 0 12px rgba(255, 120, 0, 0.6);
-  transition: 0.25s;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 14px rgba(255,138,50,0.35);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.05);
-  background: var(--accent2);
-  box-shadow: 0 0 18px rgba(255, 165, 0, 0.8);
+  background: var(--orange-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255,150,70,0.5);
 }
 
-/* Transparent alternative button */
+/* Alternative Button */
 .btn-alt {
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--muted);
-  padding: 10px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
+  color: var(--text-muted);
+  transition: 0.25s;
 }
 
 .btn-alt:hover {
-  border-color: var(--accent);
-  color: #fff;
+  border-color: var(--orange);
+  color: var(--orange-soft);
 }
 
-/* Categories */
-.categories {
-  margin-top: 36px;
-}
-
+/* Popular Services */
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 14px;
 }
 
 .cat {
-  background: #0f0f0f;
-  padding: 16px;
-  border-radius: 10px;
-  border: 1px solid #1e1e1e;
-  cursor: pointer;
-  font-weight: 700;
+  background: var(--card);
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
   text-align: center;
-  transition: 0.2s;
+  transition: 0.25s;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
 .cat:hover {
-  background: #151515;
-  border-color: var(--accent);
-  color: var(--accent2);
-  transform: translateY(-3px);
-  box-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
+  border-color: var(--orange);
+  background: #1f1a15;
+  color: var(--orange);
+  transform: translateY(-2px);
 }
 
-/* Results Cards */
+/* Technician Cards */
 .card {
-  background: #0d0d0d;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #1a1a1a;
-  transition: 0.2s;
+  background: var(--card);
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: var(--shadow);
+  transition: 0.25s;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 0 12px rgba(255, 120, 0, 0.4);
+  border-color: var(--orange);
 }
 
-/* Tech Cards */
-.tech-card {
-  background: #111;
-  color: #fff;
-  border-radius: 12px;
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  border: 1px solid #222;
-  transition: 0.2s;
+/* Technician Info Buttons */
+.profile-btn {
+  background: var(--orange);
+  color: black;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  transition: 0.25s;
 }
 
-.tech-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(255, 120, 0, 0.4);
+.profile-btn:hover {
+  background: var(--orange-soft);
 }
 
 /* Footer */
 .site-footer {
-  padding: 28px 0;
-  color: var(--muted);
+  margin-top: 60px;
+  padding: 25px 0;
   text-align: center;
-  font-size: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
-
-/* Responsive unchanged */
