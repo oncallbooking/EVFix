@@ -2,82 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>FutriFix — Find Technicians Near You</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
+
 <body>
+
+  <!-- TOP MENU -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">FutriFix</div>
-<nav class="desktop-nav">
-    <a href="index.html">Home</a>
-    <a href="signup-tech.html">Become a Tech</a>
-    <a href="wallet.html">Wallet</a>
-    <a href="subscription.html">Subscriptions</a>
-    <a href="client-post.html">Post a Job</a>
-</nav>
 
+      <nav class="main-menu">
+        <a href="index.html">Home</a>
+        <a href="signup-tech.html">Become a Technician</a>
+        <a href="client-post.html">Post a Job</a>
+        <a href="subscriptions.html">Subscriptions</a>
+        <a href="wallet.html">Wallet</a>
+      </nav>
     </div>
   </header>
 
   <main class="container">
+
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <h1>Find trusted technicians near you</h1>
-        <p class="muted">Search by service and location. See technician rates, experience and bids from local technicians.</p>
+        <p class="muted">Search by service and location. View technician rates, experience and job bids from verified experts.</p>
+
         <div class="search-row">
-          <input id="serviceInput" placeholder="What service do you need? e.g. AC Repair" />
-          <input id="locationInput" placeholder="Enter PIN code or city" />
+          <input id="serviceInput" placeholder="What service do you need? e.g. AC Repair">
+          <input id="locationInput" placeholder="Enter PIN code or city">
           <button id="searchBtn" class="btn-primary">Search</button>
         </div>
+
         <div id="searchMsg" class="muted" style="margin-top:10px"></div>
       </div>
 
       <div class="hero-right">
-        <!-- hero image — using your uploaded screenshot path as preview (move to images/ for deployment) -->
-        <img src="/mnt/data/Screenshot 2025-11-21 at 5.59.28 AM.png" alt="preview" style="width:100%;border-radius:10px;filter:contrast(0.95)"/>
+        <img src="images/preview-hero.jpg" alt="preview" style="width:100%;border-radius:12px;">
       </div>
     </section>
 
+    <!-- POPULAR SERVICES (No Emojis) -->
     <section class="categories">
       <h2>Popular Services</h2>
       <div class="cat-grid">
-        <button class="cat" data-service="EV Repair">🔌 EV Repair</button>
-        <button class="cat" data-service="Solar Service">🔆 Solar Service</button>
-        <button class="cat" data-service="AC Repair">❄️ AC Repair</button>
-        <button class="cat" data-service="Washing Machine">🧺 Washing Machine</button>
-        <button class="cat" data-service="Geyser Repair">🔥 Geyser Repair</button>
-        <button class="cat" data-service="CCTV">📡 CCTV Installation</button>
-        <button class="cat" data-service="E-bike Service">🛵 E-bike Service</button>
-        <button class="cat" data-service="Appliance Installation">⚒️ Appliance Installation</button>
+        <button class="cat" data-service="EV Repair">EV Repair</button>
+        <button class="cat" data-service="Solar Service">Solar Service</button>
+        <button class="cat" data-service="AC Repair">AC Repair</button>
+        <button class="cat" data-service="Washing Machine">Washing Machine</button>
+        <button class="cat" data-service="Geyser Repair">Geyser Repair</button>
+        <button class="cat" data-service="CCTV Installation">CCTV Installation</button>
+        <button class="cat" data-service="E-bike Service">E-bike Service</button>
+        <button class="cat" data-service="Appliance Installation">Appliance Installation</button>
       </div>
     </section>
 
+    <!-- TECHNICIANS + JOB FEED -->
     <section class="results">
       <h2>Technicians & Bids</h2>
+
       <div class="layout-split">
+
+        <!-- TECH LIST -->
         <div style="flex:1;min-width:360px;">
           <div id="techList" class="list"></div>
         </div>
+
+        <!-- MAP + JOB FEED -->
         <div style="flex:1;min-width:360px;">
-          <div id="map" style="height:520px;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.06)"></div>
-          <div style="margin-top:12px">
-            <h3>Open Jobs (clients)</h3>
+
+          <div id="map"
+               style="height:520px;border-radius:12px;overflow:hidden;
+               border:1px solid rgba(255,255,255,0.06)">
+          </div>
+
+          <!-- CLIENT JOBS -->
+          <div style="margin-top:16px">
+            <h3>Open Jobs (Clients)</h3>
             <div id="jobFeed"></div>
           </div>
+
+          <!-- CLIENT POST BOX INSIDE HOME -->
+          <div class="client-post-box" style="
+            background:#161616;
+            padding:20px;
+            border-radius:16px;
+            margin-top:20px;
+            border:1px solid rgba(255,255,255,0.08)">
+            
+            <h3 style="margin-bottom:12px;">Post a Job</h3>
+
+            <p class="muted" style="margin-bottom:12px;font-size:14px;">
+              Technicians and clients must not share phone numbers or personal contacts
+              before purchasing a subscription plan.
+            </p>
+
+            <input id="jobTitle" placeholder="Job Title (e.g. AC Repair Needed)"
+              style="width:100%;padding:12px;border-radius:12px;margin-bottom:10px">
+            
+            <textarea id="jobDesc" placeholder="Describe your issue..."
+              style="width:100%;padding:12px;border-radius:12px;height:90px;margin-bottom:10px"></textarea>
+
+            <input id="jobPin" placeholder="PIN Code" 
+              style="width:100%;padding:12px;border-radius:12px;margin-bottom:12px">
+
+            <button onclick="postClientJob()" class="btn-primary" style="width:100%;">
+              Submit Job Request
+            </button>
+          </div>
+
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
-    <div class="container">© FutriFix 2025 — Built for India · Prototype</div>
+    <div class="container">© FutriFix 2025 — Built for India</div>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/main.js"></script>
+
 </body>
 </html>
