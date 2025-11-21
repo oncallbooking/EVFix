@@ -1,162 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FutriFix — EV, Solar & Home Appliance Repair (Pan-India)</title>
+<meta charset="UTF-8" />
+<title>FutriFix – Find Technicians Near You</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Leaflet for map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin=""/>
-  <link rel="stylesheet" href="css/styles.css">
+<style>
+/* Page-Specific Thumbtack Style */
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+.hero-search {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.hero-search h1 {
+  font-size: 38px;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.search-area {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.search-area input {
+  padding: 14px;
+  width: 260px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-area button {
+  padding: 14px 22px;
+  border: none;
+  background: #00e5a8;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 14px;
+  margin-top: 40px;
+}
+
+.categories .cat {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #eee;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.categories .cat:hover {
+  transform: translateY(-5px);
+}
+
+.tech-list {
+  margin-top: 40px;
+}
+
+.tech-card {
+  background: white;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.tech-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.become-tech {
+  background: #f4f4f4;
+  padding: 40px;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 50px;
+}
+</style>
+
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">
-        <div class="logo-mark" aria-hidden>
-          <!-- tiny inline svg -->
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="6" width="52" height="52" rx="10" fill="white" fill-opacity="0.04"/><path d="M20 38v6a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-6" stroke="white" stroke-opacity="0.95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 26h8v8h-8z" stroke="white" stroke-opacity="0.95" stroke-width="2" stroke-linejoin="round"/><circle cx="46" cy="18" r="6" fill="white" fill-opacity="0.9"/></svg>
-        </div>
-        <div class="brand"><h1>FutriFix</h1><div class="muted">Pan-India EV · Solar · Appliance Service Network</div></div>
+
+<div class="container">
+
+  <section class="hero-search">
+      <h1>Find trusted technicians near you</h1>
+      <div class="search-area">
+          <input id="serviceInput" placeholder="What service do you need? (e.g. AC Repair)" />
+          <input id="locationInput" placeholder="Enter your PIN or city" />
+          <button onclick="searchTechs()">Search</button>
       </div>
-      <nav>
-        <a href="#services">Services</a>
-        <a href="#branches">Branches</a>
-        <a href="#how">How it works</a>
-        <a href="#contact">Contact</a>
-        <button class="btn-primary" id="bookBtn">Book a Visit</button>
-      </nav>
-    </header>
+  </section>
 
-    <main>
-      <section class="hero">
-        <div class="hero-left">
-          <h2>Fast, reliable repair & maintenance — across India</h2>
-          <p>Find certified technicians near you. We operate through a growing network of local service centers and mobile teams covering cities, towns and rural hubs.</p>
-
-          <div class="section search-card" style="margin-top:16px">
-            <div style="font-weight:800;margin-bottom:8px">Search service by PIN code or city</div>
-            <div class="search-row">
-              <input id="searchInput" placeholder="Enter PIN code (e.g., 110001) or city name" />
-              <button id="searchBtn">Find</button>
-            </div>
-            <div id="searchResult" class="result">Enter a PIN code and click Find to see nearest branches & ETA.</div>
-          </div>
-
-          <div id="services" class="services-grid">
-            <!-- same service cards as before -->
-            <div class="card"><img src="https://picsum.photos/seed/evservice/900/600" alt="EV Service"><h3>EV Repair & Diagnostics</h3><p class="muted">Battery health, motor repairs, telematics, on-site charging & roadside assistance.</p></div>
-            <div class="card"><img src="https://picsum.photos/seed/solarroof/900/600" alt="Solar Service"><h3>Solar Panel Care</h3><p class="muted">Cleaning, inverter servicing, panel replacement, generation optimization & monitoring.</p></div>
-            <div class="card"><img src="https://picsum.photos/seed/appliancerepair/900/600" alt="Appliance Service"><h3>Home Appliance Repair</h3><p class="muted">Fridge, AC, washing machine, geyser repairs and preventive maintenance plans.</p></div>
-            <div class="card"><img src="https://picsum.photos/seed/bike/900/600" alt="Bike Service"><h3>E-Bike & 2W Repair</h3><p class="muted">Battery swaps, motor servicing and local pickup/drop options.</p></div>
-            <div class="card"><img src="https://picsum.photos/seed/installer/900/600" alt="Installations"><h3>Installations & Retrofits</h3><p class="muted">EV charger installs, rooftop solar, and appliance setup with warranty.</p></div>
-            <div class="card"><img src="https://picsum.photos/seed/maintenance/900/600" alt="Maintenance"><h3>Subscription Plans</h3><p class="muted">Monthly & annual plans for homes and fleets — priority visits, discounts on parts and free diagnostics.</p></div>
-          </div>
-        </div>
-
-        <aside class="hero-right">
-          <div class="search-card">
-            <div style="font-weight:800">Why FutriFix?</div>
-            <div style="margin-top:10px" class="muted">Local technicians • Genuine parts • 90-day warranty • Transparent pricing</div>
-            <div style="margin-top:12px;display:flex;gap:8px;justify-content:space-between">
-              <div style="text-align:center"><div class="badge">24–48h</div><div class="muted" style="margin-top:6px">Response</div></div>
-              <div style="text-align:center"><div class="badge">120+</div><div class="muted" style="margin-top:6px">Towns</div></div>
-              <div style="text-align:center"><div class="badge">5k+</div><div class="muted" style="margin-top:6px">Serviced</div></div>
-            </div>
-            <div style="margin-top:12px">
-              <button class="btn-primary" style="width:100%">Book a Service</button>
-            </div>
-          </div>
-
-          <div class="section" style="margin-top:18px">
-            <div class="card">
-              <h3>Become a partner tech</h3>
-              <p class="muted">Join our network — training, tools, and guaranteed leads. Open for local workshops & franchises.</p>
-              <button id="applyBtn" style="margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:10px;color:var(--muted)">Apply Now</button>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section id="branches" class="branches">
-        <h3 style="margin:0 0 12px">Our Branches — Pan-India Network</h3>
-        <p class="muted">Search by PIN to find nearest service centre and ETA. Click a marker to view details.</p>
-
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div style="flex:1;min-width:360px">
-            <div id="branchList" class="branch-list">
-              <!-- JS will render cards here -->
-            </div>
-          </div>
-          <div style="flex:1;min-width:360px">
-            <div id="map" style="height:420px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)"></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="how" class="section">
-        <h3>How FutriFix works</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div class="card" style="flex:1;min-width:220px"><h4>1. Book</h4><p class="muted">Enter PIN / city or call. Choose time & service.</p></div>
-          <div class="card" style="flex:1;min-width:220px"><h4>2. Technician Visit</h4><p class="muted">Certified local tech visits with tools & parts for quick fixes.</p></div>
-          <div class="card" style="flex:1;min-width:220px"><h4>3. Pay & Warranty</h4><p class="muted">Transparent invoice, digital payments, and 90-day workmanship warranty.</p></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h3>Pricing & Plans</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div class="card" style="flex:1;min-width:220px"><h4>Basic Checkup</h4><p class="muted">₹299 — onsite diagnostics, minor repairs (parts extra)</p></div>
-          <div class="card" style="flex:1;min-width:220px"><h4>Maintenance Plan</h4><p class="muted">₹999/yr — 2 visits, 10% parts discount, priority booking</p></div>
-          <div class="card" style="flex:1;min-width:220px"><h4>Fleet Care</h4><p class="muted">Custom pricing for fleets and community solar — service SLAs and dedicated manager</p></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h3>Testimonials</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-          <div class="card"><b>Ramesh, Gurugram</b><p class="muted">"Fast EV pickup and genuine parts — good service."</p></div>
-          <div class="card"><b>Fatima, Lucknow</b><p class="muted">"Solar cleaning team helped increase generation by 12%"</p></div>
-          <div class="card"><b>Deepa, Chennai</b><p class="muted">"Affordable yearly plan — technicians are friendly."</p></div>
-        </div>
-      </section>
-
-      <section id="contact" class="section">
-        <h3>Contact & Franchise Requests</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div class="card" style="flex:1;min-width:320px">
-            <h4>Customer Support</h4>
-            <p class="muted">Email: support@futrifix.example | Phone: 1800-123-456</p>
-            <p class="muted">Or enter your details and we will call back:</p>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <input id="name" placeholder="Your name" />
-              <input id="phone" placeholder="Phone" style="width:150px" />
-            </div>
-            <div style="margin-top:8px"><button id="requestCallback" class="btn-primary">Request Callback</button></div>
-          </div>
-          <div class="card" style="flex:1;min-width:320px">
-            <h4>Franchise / Partnership</h4>
-            <p class="muted">Interested in opening a FutriFix branch? Tell us your city and PIN — we will get back with a plan.</p>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <input id="cityPartner" placeholder="City" />
-              <input id="pinPartner" placeholder="PIN" style="width:120px" />
-            </div>
-            <div style="margin-top:8px"><button id="applyPartner" class="btn-alt">Apply</button></div>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <div>© <strong>FutriFix</strong> 2025 • Built for Indian neighborhoods</div>
-        <div style="display:flex;gap:12px"><a href="#" class="muted">Privacy</a><a href="#" class="muted">Terms</a></div>
-      </footer>
-    </main>
+  <h2>Popular Services</h2>
+  <div class="categories">
+      <div class="cat">🔌 EV Repair</div>
+      <div class="cat">🔆 Solar Service</div>
+      <div class="cat">❄️ AC Repair</div>
+      <div class="cat">🧺 Washing Machine</div>
+      <div class="cat">🔥 Geyser Repair</div>
+      <div class="cat">📡 CCTV Installation</div>
+      <div class="cat">🛵 E-bike Service</div>
+      <div class="cat">⚒️ Appliance Installation</div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin=""></script>
-  <script src="js/app.js"></script>
+  <h2 style="margin-top:50px">Technicians Near You</h2>
+  <div id="techList" class="tech-list"></div>
+
+  <div class="become-tech">
+      <h2>Are you a Technician?</h2>
+      <p>Join FutriFix and get customers in your city.</p>
+      <a href="signup-tech.html">
+          <button class="btn-primary">Become a Technician</button>
+      </a>
+  </div>
+
+</div>
+
+<script>
+// Load technicians
+let technicians = [];
+
+fetch("data/techs.json")
+  .then(r => r.json())
+  .then(data => technicians = data);
+
+function searchTechs() {
+    const service = document.getElementById("serviceInput").value.toLowerCase();
+    const location = document.getElementById("locationInput").value.toLowerCase();
+    const list = document.getElementById("techList");
+    list.innerHTML = "";
+
+    const results = technicians.filter(t =>
+        t.services.some(s => s.toLowerCase().includes(service)) &&
+        (t.city.toLowerCase().includes(location) || t.pin.includes(location))
+    );
+
+    if (results.length === 0) {
+        list.innerHTML = "<p>No technicians found.</p>";
+        return;
+    }
+
+    results.forEach(t => {
+        const div = document.createElement("div");
+        div.className = "tech-card";
+        div.innerHTML = `
+            <img src="${t.photo}" />
+            <div>
+                <h3>${t.name}</h3>
+                <p>${t.city} • ${t.pin}</p>
+                <p><b>Services:</b> ${t.services.join(", ")}</p>
+                <p><b>Experience:</b> ${t.experience} years</p>
+            </div>
+        `;
+        div.onclick = () => window.location = `technician.html?id=${t.id}`;
+        list.appendChild(div);
+    });
+}
+</script>
+
 </body>
 </html>
