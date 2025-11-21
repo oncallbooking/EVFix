@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Subscription Plans – FutriFix</title>
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/subscription.js" defer></script>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="brand">FutriFix</div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="wallet.html">Wallet</a>
+            <a href="subscription.html">Subscriptions</a>
+            <a href="client-post.html">Post a Job</a>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+    <div id="mobileMenu" class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="wallet.html">Wallet</a>
+        <a href="subscription.html">Subscriptions</a>
+        <a href="client-post.html">Post a Job</a>
+    </div>
+</header>
+
+
+<div class="container" style="margin-top:40px">
+
+    <h1>Choose Your Subscription</h1>
+
+    <div class="cat-grid">
+
+        <div class="card plan" onclick="buyPlan('basic')">
+            <h2>Basic</h2>
+            <p>₹199 / month</p>
+            <ul>
+                <li>30 Lead Credits</li>
+                <li>10 Bid Credits</li>
+                <li>Standard profile ranking</li>
+            </ul>
+            <button class="btn-primary">Buy Basic</button>
+        </div>
+
+        <div class="card plan" onclick="buyPlan('pro')">
+            <h2>Pro</h2>
+            <p>₹499 / month</p>
+            <ul>
+                <li>70 Lead Credits</li>
+                <li>40 Bid Credits</li>
+                <li>High profile ranking</li>
+                <li>Direct call button</li>
+            </ul>
+            <button class="btn-primary">Buy Pro</button>
+        </div>
+
+        <div class="card plan" onclick="buyPlan('promax')">
+            <h2>Pro Max</h2>
+            <p>₹999 / month</p>
+            <ul>
+                <li>Unlimited Bids</li>
+                <li>Top profile ranking</li>
+                <li>Featured listing</li>
+                <li>Verified badge</li>
+            </ul>
+            <button class="btn-primary">Buy Pro Max</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
