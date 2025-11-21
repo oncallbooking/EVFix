@@ -1,71 +1,51 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Technician Signup – FutriFix</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" href="css/styles.css" />
-
-<style>
-.form {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: auto;
-}
-.form input, .form textarea {
-  width: 100%;
-  margin-bottom: 14px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-</style>
-
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Technician Signup — FutriFix</title>
+  <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
-<div class="container">
-<h1>Technician Signup</h1>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">FutriFix</div>
+      <nav><a href="index.html">Home</a><a href="client-post.html">Post a Job</a></nav>
+    </div>
+  </header>
 
-<div class="form">
+  <main class="container">
+    <section class="card">
+      <h2>Technician Sign Up</h2>
+      <p class="muted">Create your profile and get listed in your area. Add degrees/certifications so customers can trust you.</p>
 
-  <input id="name" placeholder="Full Name" />
-  <input id="city" placeholder="City" />
-  <input id="pin" placeholder="PIN Code" />
-  <input id="services" placeholder="Services (comma separated)" />
-  <input id="degree" placeholder="Degree / Certification" />
-  <input id="photo" placeholder="Photo URL" />
-  <input id="experience" placeholder="Experience (years)" />
-  <input id="price" placeholder="Starting Price (₹)" />
+      <div class="form-grid">
+        <input id="name" placeholder="Full name" />
+        <input id="phone" placeholder="Phone (for display)" />
+        <input id="city" placeholder="City" />
+        <input id="pin" placeholder="PIN code" />
+        <input id="services" placeholder="Services (comma separated) e.g. AC Repair, EV Repair" />
+        <input id="degree" placeholder="Degree / Certification (example: ITI Electrical)" />
+        <input id="experience" placeholder="Years of experience" type="number" min="0" />
+        <input id="price" placeholder="Starting price (₹)" />
+        <input id="photo" placeholder="Photo URL (or leave blank)" />
+        <textarea id="bio" placeholder="Short bio / specialties"></textarea>
+      </div>
 
-  <button onclick="registerTech()" class="btn-primary">Register</button>
+      <div style="display:flex;gap:12px;margin-top:12px">
+        <button id="signupBtn" class="btn-primary">Register & Publish</button>
+        <button id="signupLocal" class="btn-alt">Register Locally (no server)</button>
+      </div>
 
-</div>
+      <div id="signupMsg" class="muted" style="margin-top:12px"></div>
+      <p style="margin-top:18px;font-size:13px" class="muted">We attempt to geocode your city/PIN using free Nominatim to place you on the map. For production, integrate Google Maps Geocoding or a paid provider.</p>
+    </section>
+  </main>
 
-</div>
+  <footer class="site-footer">
+    <div class="container">© FutriFix 2025</div>
+  </footer>
 
-<script>
-function registerTech() {
-    const newTech = {
-       id: Date.now(),
-       name: name.value,
-       city: city.value,
-       pin: pin.value,
-       services: services.value.split(",").map(s=>s.trim()),
-       degree: degree.value,
-       photo: photo.value,
-       experience: experience.value,
-       price: price.value
-    };
-
-    let techList = JSON.parse(localStorage.getItem("techList") || "[]");
-    techList.push(newTech);
-    localStorage.setItem("techList", JSON.stringify(techList));
-
-    alert("Technician registered successfully!");
-    window.location = "index.html";
-}
-</script>
+  <script src="js/signup.js"></script>
 </body>
 </html>
