@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Technician Profile</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+.profile {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.profile img {
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 14px;
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+
+<div id="profile" class="profile"></div>
+
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+
+fetch("data/techs.json")
+  .then(r => r.json())
+  .then(techs => {
+      const tech = techs.find(t => t.id == id);
+
+      document.getElementById("profile").innerHTML = `
+         <img src="${tech.photo}">
+         <h1>${tech.name}</h1>
+         <p><b>City:</b> ${tech.city}</p>
+         <p><b>PIN:</b> ${tech.pin}</p>
+         <p><b>Experience:</b> ${tech.experience} years</p>
+         <p><b>Services:</b> ${tech.services.join(", ")}</p>
+         <p><b>Degree:</b> ${tech.degree}</p>
+         <p><b>Pricing:</b> ₹${tech.price}</p>
+      `;
+});
+</script>
+
+</body>
+</html>
